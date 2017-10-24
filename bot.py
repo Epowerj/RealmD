@@ -90,16 +90,13 @@ def info(bot, update): #TODO add automatic indexing an inline buttons
 def setinfo(bot, update):
     global char_info
 
-    //if update.message.from_user.id == admin_id:  # if admin
-        commandtext = update.message.text.split(' ', 2)
+    commandtext = update.message.text.split(' ', 2)
 
-        char_info[commandtext[1].lower()] = commandtext[2]
+    char_info[commandtext[1].lower()] = commandtext[2]
 
-        save_info()
+    save_info()
 
-        bot.sendMessage(update.message.chat_id, text="Info saved")
-    //else:
-    //    bot.sendMessage(update.message.chat_id, text="You are not authorized")
+    bot.sendMessage(update.message.chat_id, text="Info saved")
 
 
 def main():
