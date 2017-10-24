@@ -2,6 +2,7 @@
 import pytest
 import bot
 import os
+import telegram
 
 b = telegram.Bot(str(os.environ["TGKEY"]))
 u = telegram.Update(1243)
