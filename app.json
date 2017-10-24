@@ -1,6 +1,6 @@
 {
   "name": "RealmD",
   "description": "A text game for Telegram",
-  "repository": "https://gitlab.com/Epowerj/RealmD",
+  "repository": "https://github.com/Epowerj/RealmD",
   "keywords": ["python", "telegram", "chat bot" ]
 }
