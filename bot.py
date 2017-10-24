@@ -8,8 +8,14 @@ db = 0
 char_info = {}
 
 # Enable logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
+debug = (str(os.environ["DEBUG"]) == "1")
+if debug:
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                        level=logging.DEBUG)
+else:
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                        level=logging.INFO)
+                        
 logger = logging.getLogger(__name__)
 
 
