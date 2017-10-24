@@ -1,7 +1,7 @@
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 #from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from key import apikey, table_name
+from key import apikey
 from urllib.parse import urlparse
 import os, logging, datetime, json, random, time
 from pymongo import MongoClient
