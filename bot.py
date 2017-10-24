@@ -1,7 +1,7 @@
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from pymongo import MongoClient
-import os, logging, datetime, json, random, time
+import os, logging, datetime, random, time
 from key import apikey
 
 db = 0
@@ -15,7 +15,7 @@ if debug:
 else:
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                         level=logging.INFO)
-                        
+
 logger = logging.getLogger(__name__)
 
 
