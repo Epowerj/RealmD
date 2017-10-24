@@ -1,10 +1,8 @@
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
-#from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from key import apikey
-from urllib.parse import urlparse
-import os, logging, datetime, json, random, time
 from pymongo import MongoClient
+import os, logging, datetime, json, random, time
+from key import apikey
 
 db = 0
 char_info = {}
@@ -12,7 +10,6 @@ char_info = {}
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
-
 logger = logging.getLogger(__name__)
 
 
@@ -37,6 +34,34 @@ def save_info():
     global db
 
     db.charinfo.update({}, char_info, upsert=True)
+
+
+def info(bot, update):
+    global char_info
+
+    commandtext = update.message.text.split(' ')
+
+    if len(commandtext) >= 2:
+        commandtext = commandtext[1].lower()
+
+        if commandtext in char_info:
+            bot.sendMessage(update.message.chat_id, text=char_info[commandtext])
+        else:
+            bot.sendMessage(update.message.chat_id, text="No info found on '"+commandtext+"'")
+    else:
+        bot.sendMessage(update.message.chat_id, text="Usage: /info <topic>")
+
+
+def setinfo(bot, update):
+    global char_info
+
+    commandtext = update.message.text.split(' ', 2)
+
+    char_info[commandtext[1].lower()] = commandtext[2]
+
+    save_info()
+
+    bot.sendMessage(update.message.chat_id, text="Info saved")
 
 
 def start(bot, update):
@@ -69,34 +94,6 @@ def parse(bot, update):
     print("file: " + str(update.message.document.file_id))
     print("Message from " + update.message.from_user.first_name + "(" + str(update.message.from_user.id) + "): " +
           update.message.text + " (" + str(update.message.message_id) + ")")
-
-
-def info(bot, update): #TODO add automatic indexing an inline buttons
-    global char_info
-
-    commandtext = update.message.text.split(' ')
-
-    if len(commandtext) >= 2:
-        commandtext = commandtext[1].lower()
-
-        if commandtext in char_info:
-            bot.sendMessage(update.message.chat_id, text=char_info[commandtext])
-        else:
-            bot.sendMessage(update.message.chat_id, text="No info found on '"+commandtext+"'")
-    else:
-        bot.sendMessage(update.message.chat_id, text="Usage: /info <topic>")
-
-
-def setinfo(bot, update):
-    global char_info
-
-    commandtext = update.message.text.split(' ', 2)
-
-    char_info[commandtext[1].lower()] = commandtext[2]
-
-    save_info()
-
-    bot.sendMessage(update.message.chat_id, text="Info saved")
 
 
 def main():
